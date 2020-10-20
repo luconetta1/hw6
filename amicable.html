@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+
+<html>
+
+<title>Amicable Numbers </title>
+
+
+<form name= "form1" onsubmit="AmicableNumbers();return false">
+    <label for="num1">First number:</label><br>
+   <input type="text" id="num1" name="num1" value=0><br>
+   <label for="num2">Second number:</label><br>
+   <input type="text" id="num2" name="num2" value=0><br><br>
+   <input type="submit" value="Submit">
+ </form>
+
+<div id = "base"></div>
+<div id = "numbers"></div>
+
+ <script>
+
+     function AmicableNumbers(){
+         num1 = document.form1.num1.value;
+         num2 = document.form1.num2.value;
+
+         num1 = parseInt(num1);
+         num2 = parseInt(num2);
+
+         am = Amicable(num1, num2);
+         //alert(am);
+         fac1 = getFactors(num1);
+         fac2 = getFactors(num2);
+
+         document.getElementById("base").innerHTML = "<p>" + num1 + ", Factors: " +
+         fac1.join(", ") + " Sum: " + addArray(fac1) + "</p>" + "<p>" + num2 +
+         ", Factors: " + fac2.join(", ") + " Sum: " + addArray(fac2) + "</p>";
+
+         str = ""
+         if(am){
+              str = str + num1 + " and " + num2 + " are amicable." ;
+         }else{
+              str = str + num1 + " and " + num2 + " are not amicable.";
+         }
+        document.getElementById("numbers").innerHTML = "<p>" + str + "</p>";
+     }
+
+     //Checks if a number(second input) is a factor of another number
+     function isFactor(number, factor){
+         if (number % factor == 0){
+            return true;
+        }else {
+            return false;
+        }
+     }
+     //alert(isFactor(4, 2));
+     //alert(isFactor(5, 2));
+
+     //shows array
+     function showArray(arr){
+         str = "";
+         for(i = 0; i < arr.length; i++){
+             str = str + arr[i] + " ";
+         }
+         document.getElementById("numbers").innerHTML = str;
+     }
+
+     //sample = [1, 2, 4, 5, 87, 8876];
+     //showArray(sample);
+
+     function addArray(arr){
+         sum = 0
+         for(i = 0; i < arr.length; i++){
+             sum = sum + arr[i];
+         }
+         return sum;
+     }
+
+    //sample2 = [1, 2, 4, 5, 87, 8876];
+     //alert(addArray(sample2));
+
+     function getFactors(num){
+         fac = [];
+         for(i = 0; i < num; i++){
+             if(isFactor(num, i)){
+                 fac.push(i);
+             }
+         }
+         return fac;
+     }
+
+    //alert(getFactors(120));
+
+    function Amicable(num1, num2){
+        fac1 = getFactors(num1);
+        fac2 = getFactors(num2);
+
+        if((addArray(fac2) == num1) && (addArray(fac1) == num2)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+
+ </script>
+
+
+</html>
